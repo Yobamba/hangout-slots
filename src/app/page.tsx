@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import Event from "../components/Event";
+import Header from "../components/Header"
 
 // Define a type for a single event to be saved
 interface EventInterface {
@@ -28,10 +29,10 @@ export default function Home() {
 				// Retrieve existing events from localStorage
 				const existingEventsString = localStorage.getItem("events");
 				const existingEvents: Event[] = existingEventsString ? JSON.parse(existingEventsString) : [];
-				console.log("Existing Events:", existingEvents);
+		
 
 				function populateEvents() {
-					console.log("Populating events...", existingEvents);
+				
 					setEvents(existingEvents);
 				};
 
@@ -57,10 +58,6 @@ export default function Home() {
 				
 
 			if (typeof window !== 'undefined') {
-
-
-
-				console.log("Events:", events);
 				
 				// const savedEventData = localStorage.getItem("eventData");
 				// if (savedEventData) {
@@ -71,12 +68,10 @@ export default function Home() {
 				// }
 			}
 			
-
-			
-
-		
-		// {console.log(eventData);}
 	return (
+		<>
+	
+	<Header headerText="Hangout Slots" />
 		<main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
 			<h1>Welcome to Hangout Slots</h1>
 			{events.length > 0 ? events.map((event, index) => {
@@ -89,6 +84,7 @@ export default function Home() {
 				/>
 			}	) : <h2>Else</h2>}
 		</main>
+		</>
 	);
 }
 

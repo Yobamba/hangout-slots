@@ -1,6 +1,7 @@
 import { Box, Typography, Paper, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useState} from "react";
 import { useRouter } from "next/navigation";
+import SuggestTimeSlot from "@/components/SuggestTimeSlot";
 
 interface ResponseProps {
     eventId: string;
@@ -11,7 +12,6 @@ function Response(props: ResponseProps) {
 
     const [respondantame, setName] = useState("");
     const [availability, setAvailability] = useState("");   
-    const [event, setEvent] = useState("");
 
     function handleSaveResponse(e: React.FormEvent) {
         e.preventDefault();
@@ -19,8 +19,8 @@ function Response(props: ResponseProps) {
 
         const {eventId} = props
 
-        setEvent(eventId);
-        console.log("eventId", eventId);
+      
+   
 
         const updateResponses = [...existingResponses, { name: respondantame, availability: availability, event: eventId }];
         localStorage.setItem("responses", JSON.stringify(updateResponses));
@@ -39,12 +39,14 @@ function Response(props: ResponseProps) {
     };
     
   return (
+    <>
     <Paper
       elevation={3}
       sx={{
         maxWidth: "600px",
         mx: "auto",
         p: 4,
+        mb: 2,
         borderRadius: 2,
       }}
     >
@@ -107,7 +109,12 @@ function Response(props: ResponseProps) {
         </Button>
       </Box>
     </Paper>
+
+    {availability === "not-available" || availability === "maybe" ? <SuggestTimeSlot /> : null}
+    </>
+    
   );
+  
 }
 
 export default Response;

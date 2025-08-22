@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Header from "../../../components/Header";
 import EventDetails from "../../../components/EventDetails";
-import Response from "../../../components/Response"
+import Response from "../../../components/Response";
+
+
+
 
 
 interface EventInterface {
@@ -12,6 +15,13 @@ interface EventInterface {
     name: string;
     dates: string[];
 }
+
+interface EventResponseInterface {
+  event: string;
+  name: string;
+  date: string;
+}
+
 
 export default function EventPage() {
 
@@ -28,18 +38,24 @@ export default function EventPage() {
     const events: EventInterface[] = existingEventsString ? JSON.parse(existingEventsString) : [];
     setExistingEvents(events);
     // setEventId(id);
-    console.log("event id", id);
 
     const savedResponses = JSON.parse(localStorage.getItem("responses") || "[]");
     setResponses(savedResponses);
-    console.log("saved ", savedResponses);
-
     
   }, []);
 
+    useEffect(() => {
+      const allResponses = JSON.parse(localStorage.getItem("responses") || "[]");
+      const currentEventResponses = allResponses.filter(
+        (response: EventResponseInterface) => response.event === id
+  );
+  console.log("currentEventResponses", currentEventResponses);
+  console.log("allResponses", allResponses);
+  setResponses(currentEventResponses);
+}, [id]);
+
   const currentEvent = existingEvents.find(event => event.id === id);
   
-
   return <div>
     <Header headerText={currentEvent?.name || "Event"} />
     <EventDetails 
@@ -47,6 +63,7 @@ export default function EventPage() {
       dates={currentEvent?.dates || []}
     />
     <Response eventId={id}/>
+    
  
   </div>;
 }

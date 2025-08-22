@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { TextField, Box, Typography, Paper, Button } from "@mui/material";
+import { TextField, Box, Typography, Button } from "@mui/material";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
@@ -116,6 +116,7 @@ function CreateEventPage() {
                     </IconButton>
 
                     <Box sx={{ mt: 2 }}>
+                        <Link href="/">
                         <Button
                             variant="contained"
                             startIcon={<SaveIcon />}
@@ -124,6 +125,9 @@ function CreateEventPage() {
                         >
                             Save Event
                         </Button>
+                        </ Link>
+
+
                         <Link href="/">
                             <Button variant="outlined" sx={{ ml: 2 }}>
                                 Go to Home

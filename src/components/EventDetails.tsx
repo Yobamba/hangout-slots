@@ -1,13 +1,15 @@
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Paper, Typography, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from "next/navigation";
 
 interface EventDetailsProps {
   responses: number;
   dates: string[];
 }
 
-function EventDetails(props: EventDetailsProps) {
+function EventDetails(props: EventDetailsProps) {  
   return (
     <Paper
       elevation={3}
@@ -15,6 +17,7 @@ function EventDetails(props: EventDetailsProps) {
         maxWidth: "600px",
         mx: "auto",
         p: 4,
+        mb: 2,
         borderRadius: 2,
       }}
     >
